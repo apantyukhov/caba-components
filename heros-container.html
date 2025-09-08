@@ -31,12 +31,12 @@
 				min-height: 380px;
 				display: flex;
 				position: relative;
+				background-color: var(--bg-color);
 			}
 
 			.content {
 				flex-grow: 1;
 				flex-shrink: 1;
-				background: var(--bg-color);
 				position: relative;
 			}
 
@@ -50,8 +50,8 @@
 			}
 
 			.content.wave::after {
-				right: -49px;				
-				width: 50px;
+				right: -54px;				
+				width: 55px;
 				mask: var(--wave-svg) no-repeat right;
 				mask-size: cover;
 				-webkit-mask: var(--wave-svg) no-repeat right;
@@ -59,8 +59,8 @@
 			}
 
 			.content.wave2::after {
-				right: -49px;				
-				width: 50px;
+				right: -54px;				
+				width: 55px;
 				mask: var(--wave-2-svg) no-repeat right;
 				mask-size: cover;
 				-webkit-mask: var(--wave-2-svg) no-repeat right;
@@ -74,19 +74,16 @@
 			}
 			
 			.aside {
-				width: 200px;
+				min-width: 200px;
 				flex-shrink: 0;
 				flex-grow: 0;
 				position: relative;
 				overflow: hidden;
+				max-width: 40%;
 			}
 
-			header.dark .aside {
+			.aside.dark {
 				background-color: #002733;
-			}
-
-			header.media .aside {
-				width: 40%;
 			}
  
 			/* --- MOBILE --- */
@@ -94,6 +91,10 @@
 				header {
 					flex-direction: column;
 					min-height: 500px;
+				}
+				
+				.content {
+					padding: 2rem;
 				}
 
 				.content.wave::after {
@@ -139,102 +140,80 @@
 			}
 
 			@media (min-width: 768px) {
-				.content .container {
-					max-width: calc(720px - 200px);
-				}
-				
-				header.media .container {
-					max-width: calc(720px - 40vw);
+				header {
+					padding-left: calc((100% - 720px) / 2 + 0.75rem);
 				}
 			}
-
-			/* @media (min-width: 992px) {
-				.content .container {
-					max-width: calc(720px - 200px);
-				}
-			} */
 
 			@media (min-width: 1200px) {
-				.content .container {
-					max-width: calc(1140px - 200px);
-				}
-
-				header.media .container {
-					max-width: calc(1140px - 40vw);
+				header {
+					padding-left: calc((100% - 1140px) / 2 + 0.75rem);
 				}
 			}
-
-			/* @media (min-width: 1400px) {
-				.content .container {
-					max-width: calc(1140px - 200px);
-				}
-			} */
     </style>
 </head>
  
 <body>
 		<h2 class="py-5">:::::WAVE:::::</h2>
-    <header class="dark">
+    <header>
 			<div class="content wave">
-				<div class="container">
-					<div class="d-flex flex-column row-gap-4 py-3 py-lg-5">
-						<nav aria-label="Navegación secundaria">
-							<ol class="breadcrumb m-0">
-								<li class="breadcrumb-item"><a href="#" style="color: #101E37;">Inicio</a></li>
-							</ol>
-						</nav>
-	
-						<div>
-							<h1 class="mb-3">Este es un encabezado de página que contiene hasta 2 líneas de texto.</h1>
-							<p class="lead m-0">Brinda las herramientas necesarias para lograr el bienestar de perros y gatos, además de
-								la convivencia armónica y responsable de las mascotas y sus responsables en el espacio público.</p>
-						</div>
-	
-						<div class="d-flex column-gap-2">
-							<!-- Desplegable de navegación 1 -->
-							<div class="dropdown">
-								<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<span class="btn-dropdown-text ellipsis-1">Institucional</span>
-									<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
-										expand_more
-									</span>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-								</div>
+				<div class="d-flex flex-column row-gap-4 py-3 py-lg-5">
+					<nav aria-label="Navegación secundaria">
+						<ol class="breadcrumb m-0">
+							<li class="breadcrumb-item"><a href="#" style="color: #101E37;">Inicio</a></li>
+						</ol>
+					</nav>
+
+					<div>
+						<h1 class="mb-3">Este es un encabezado de página que contiene hasta 2 líneas de texto.</h1>
+						<p class="lead m-0">Brinda las herramientas necesarias para lograr el bienestar de perros y gatos, además de
+							la convivencia armónica y responsable de las mascotas y sus responsables en el espacio público.</p>
+					</div>
+
+					<div class="d-flex column-gap-2">
+						<!-- Desplegable de navegación 1 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Institucional</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
 							</div>
-							<!-- Inicio Desplegable de navegación 2 -->
-							<div class="dropdown">
-								<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<span class="btn-dropdown-text ellipsis-1">Transparencia activa</span>
-									<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
-										expand_more
-									</span>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-								</div>
-							</div>
-							<!-- Fin Desplegable de navegación 2 -->
 						</div>
+						<!-- Inicio Desplegable de navegación 2 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Transparencia activa</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+							</div>
+						</div>
+						<!-- Fin Desplegable de navegación 2 -->
 					</div>
 				</div>
 			</div>
@@ -244,67 +223,65 @@
 		<div class="container">CONTAINER::::</div>
 
 		<h3 class="py-5">Con Imagen:</h2>
-		<header class="media">
+		<header>
 			<div class="content corner">
-				<div class="container">
-					<div class="d-flex flex-column row-gap-4 py-3 py-lg-5">
-						<nav aria-label="Navegación secundaria">
-							<ol class="breadcrumb m-0">
-								<li class="breadcrumb-item"><a href="#" style="color: #101E37;">Inicio</a></li>
-							</ol>
-						</nav>
-	
-						<div>
-							<h1 class="mb-3">Este es un encabezado de página que contiene hasta 2 líneas de texto.</h1>
-							<p class="lead m-0">Brinda las herramientas necesarias para lograr el bienestar de perros y gatos, además de
-								la convivencia armónica y responsable de las mascotas y sus responsables en el espacio público.</p>
-						</div>
-	
-						<div class="d-flex column-gap-2">
-							<!-- Desplegable de navegación 1 -->
-							<div class="dropdown">
-								<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<span class="btn-dropdown-text ellipsis-1">Institucional</span>
-									<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
-										expand_more
-									</span>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-								</div>
+				<div class="d-flex flex-column row-gap-4 py-3 py-lg-5">
+					<nav aria-label="Navegación secundaria">
+						<ol class="breadcrumb m-0">
+							<li class="breadcrumb-item"><a href="#" style="color: #101E37;">Inicio</a></li>
+						</ol>
+					</nav>
+
+					<div>
+						<h1 class="mb-3">Este es un encabezado de página que contiene hasta 2 líneas de texto.</h1>
+						<p class="lead m-0">Brinda las herramientas necesarias para lograr el bienestar de perros y gatos, además de
+							la convivencia armónica y responsable de las mascotas y sus responsables en el espacio público.</p>
+					</div>
+
+					<div class="d-flex column-gap-2">
+						<!-- Desplegable de navegación 1 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Institucional</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
 							</div>
-							<!-- Inicio Desplegable de navegación 2 -->
-							<div class="dropdown">
-								<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<span class="btn-dropdown-text ellipsis-1">Transparencia activa</span>
-									<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
-										expand_more
-									</span>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<span class="item-text">Opción de navegación</span>
-									</a>
-								</div>
-							</div>
-							<!-- Fin Desplegable de navegación 2 -->
 						</div>
+						<!-- Inicio Desplegable de navegación 2 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Transparencia activa</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+							</div>
+						</div>
+						<!-- Fin Desplegable de navegación 2 -->
 					</div>
 				</div>
 			</div>
