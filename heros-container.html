@@ -28,16 +28,17 @@
 			}
 
 			header {
-				min-height: 380px;
 				display: flex;
-				position: relative;
+				flex-direction: column;
 				background-color: var(--bg-color);
+				min-height: 500px;
 			}
 
 			.content {
 				flex-grow: 1;
 				flex-shrink: 1;
 				position: relative;
+				padding: 2rem;
 			}
 
 			.content::after {
@@ -45,103 +46,95 @@
   			position: absolute;
 				background: var(--bg-color);
 				z-index: 1;
-				height: 100%;
-				top: 0;
+				right: 0;
+				width: 100%;
+				bottom: -64px;
+				height: 65px;
 			}
 
 			.content.wave::after {
-				right: -54px;				
-				width: 55px;
-				mask: var(--wave-svg) no-repeat right;
+				mask: var(--wave-mobile-svg) no-repeat bottom;
 				mask-size: cover;
-				-webkit-mask: var(--wave-svg) no-repeat right;
+				-webkit-mask: var(--wave-mobile-svg) no-repeat bottom;
 				-webkit-mask-size: cover;
 			}
 
 			.content.wave2::after {
-				right: -54px;				
-				width: 55px;
-				mask: var(--wave-2-svg) no-repeat right;
+				mask: var(--wave-2-mobile-svg) no-repeat bottom;
 				mask-size: cover;
-				-webkit-mask: var(--wave-2-svg) no-repeat right;
+				-webkit-mask: var(--wave-2-mobile-svg) no-repeat bottom;
 				-webkit-mask-size: cover;
 			}
 
 			.content.corner::after {
-				width: 80px;
-				right: -80px;
-				border-top-right-radius: 80px;
+				bottom: -39px;	
+				height: 40px;
+				border-radius: 0;
+				border-bottom-right-radius: 40px;
 			}
-			
+
 			.aside {
-				min-width: 200px;
-				flex-shrink: 0;
-				flex-grow: 0;
-				position: relative;
-				overflow: hidden;
-				max-width: 40%;
+				width: 100%;
+				min-height: 100px;
+				min-width: 100%;
+				max-height: 40%;
 			}
 
 			.aside.dark {
 				background-color: #002733;
 			}
- 
-			/* --- MOBILE --- */
-			@media (max-width: 768px) {
+
+			/* DESKTOP */
+			@media (min-width: 768px) {
 				header {
-					flex-direction: column;
-					min-height: 500px;
+					min-height: 380px;
+					flex-direction: row;
+					padding-left: calc((100% - 720px) / 2 + 0.75rem);
 				}
-				
+
 				.content {
-					padding: 2rem;
+					padding: 0;
+				}
+
+				.content::after {
+					bottom: auto;
+					top: 0;
+					right: -54px;				
+					width: 55px;
+					height: 100%;
 				}
 
 				.content.wave::after {
-					right: 0;
-					top: auto;
-					width: 100%;
-					bottom: -64px;
-					height: 65px;
-					mask: var(--wave-mobile-svg) no-repeat bottom;
+					bottom: auto;
+					mask: var(--wave-svg) no-repeat right;
 					mask-size: cover;
-					-webkit-mask: var(--wave-mobile-svg) no-repeat bottom;
+					-webkit-mask: var(--wave-svg) no-repeat right;
 					-webkit-mask-size: cover;
 				}
 
 				.content.wave2::after {
-					right: 0;
-					top: auto;
-					width: 100%;
-					bottom: -64px;
-					height: 65px;
-					mask: var(--wave-2-mobile-svg) no-repeat bottom;
+					mask: var(--wave-2-svg) no-repeat right;
 					mask-size: cover;
-					-webkit-mask: var(--wave-2-mobile-svg) no-repeat bottom;
+					-webkit-mask: var(--wave-2-svg) no-repeat right;
 					-webkit-mask-size: cover;
 				}
 
 				.content.corner::after {
-					right: 0;
-					bottom: -39px;
-					top: auto;
-					width: 100%;
-					height: 40px;
+					height: 100%;
+					width: 80px;
+					right: -80px;
 					border-radius: 0;
-					border-bottom-right-radius: 40px;
+					border-top-right-radius: 80px;
 				}
 
 				.aside {
-					width: 100%;
-					min-height: 100px;
-					min-width: 100%;
-					max-height: 40%;
-				}
-			}
-
-			@media (min-width: 768px) {
-				header {
-					padding-left: calc((100% - 720px) / 2 + 0.75rem);
+					width: auto;
+					min-width: 200px;
+					flex-shrink: 0;
+					flex-grow: 0;
+					position: relative;
+					overflow: hidden;
+					max-width: 40%;
 				}
 			}
 
@@ -289,6 +282,74 @@
 			<div class="aside">
 				<img src="./images/hero.png" width="100%" height="100%" style="object-fit: cover; object-position: right;" alt="Imagen" />
 			</div>
+		</header>
+		<div class="container">CONTAINER::::</div>
+
+		<h2 class="py-5">:::::WAVE option 2:::::</h2>
+    <header>
+			<div class="content wave2">
+				<div class="d-flex flex-column row-gap-4 py-3 py-lg-5">
+					<nav aria-label="Navegación secundaria">
+						<ol class="breadcrumb m-0">
+							<li class="breadcrumb-item"><a href="#" style="color: #101E37;">Inicio</a></li>
+						</ol>
+					</nav>
+
+					<div>
+						<h1 class="mb-3">Este es un encabezado de página que contiene hasta 2 líneas de texto.</h1>
+						<p class="lead m-0">Brinda las herramientas necesarias para lograr el bienestar de perros y gatos, además de
+							la convivencia armónica y responsable de las mascotas y sus responsables en el espacio público.</p>
+					</div>
+
+					<div class="d-flex column-gap-2">
+						<!-- Desplegable de navegación 1 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Institucional</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+							</div>
+						</div>
+						<!-- Inicio Desplegable de navegación 2 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-dropdown btn-dropdown-border btn-lg" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<span class="btn-dropdown-text ellipsis-1">Transparencia activa</span>
+								<span class="material-symbols-rounded btn-dropdown-icon" aria-label="hidden">
+									expand_more
+								</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+								<a class="dropdown-item" href="#">
+									<span class="item-text">Opción de navegación</span>
+								</a>
+							</div>
+						</div>
+						<!-- Fin Desplegable de navegación 2 -->
+					</div>
+				</div>
+			</div>
+
+			<div class="aside dark"></div>
 		</header>
 		<div class="container">CONTAINER::::</div>
 	
