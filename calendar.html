@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ 
+    <!-- Obelisco -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    </link>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./dist/styles.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+
+		<style>
+			.calendar-body td {
+				-webkit-user-select: none;
+    		-ms-user-select: none;
+    		user-select: none;
+			}
+
+			.calendar-body td.not-current {
+				color: #ccc;
+				background-color: #f9f9f9; 
+				opacity: 0.6;
+			}
+
+			.calendar-body td:not(.not-current) span {
+				cursor: pointer;
+			}
+
+			.calendar-body td > span:first-child {
+				margin: 0 !important;
+				height: 100% !important;
+				position: relative;
+			}
+
+			.calendar-body span span.today {
+				outline: 1px solid red !important;
+				margin: 0 !important;
+			}
+
+			.calendar-body td:not(.not-current) span[class*="event-"]::before {
+				color: blue;
+				position: absolute;
+				bottom: 20px;
+				height: 10px;
+				display: flex;
+				justify-content: center;
+				width: 100%;
+			}
+			
+			.calendar-body td:not(.not-current) span.event-1::before { content: '•'; }
+			.calendar-body td:not(.not-current) span.event-2::before { content: '••'; }
+			.calendar-body td:not(.not-current) span.event-3::before { content: '•••'; }
+			.calendar-body td:not(.not-current) span.event-4::before { content: '••••'; }
+
+			.calendar-body td:not(.not-current) span.active[class*="event-"]::before {
+				color: white;
+				bottom: 17px;
+			}
+
+		</style>
+</head>
+ 
+<body>
+	
+	<div class="calendar" id="calendar">
+    <div class="calendar-header">
+			<select class="form-control form-select month" aria-label="Mes">
+				<option value="0">Enero</option>
+				<option value="1">Febrero</option>
+				<option value="2">Marzo</option>
+				<option value="3">Abril</option>
+				<option value="4">Mayo</option>
+				<option value="5">Junio</option>
+				<option value="6">Julio</option>
+				<option value="7">Agosto</option>
+				<option value="8">Septiembre</option>
+				<option value="9">Octubre</option>
+				<option value="10">Noviembre</option>
+				<option value="11">Diciembre</option>
+			</select>
+
+			<select class="form-control form-select year" aria-label="Año">
+				<option value="2018">2018</option>
+				<option value="2019">2019</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
+				<option value="2025">2025</option>
+				<option value="2026">2026</option>
+			</select>
+    </div>
+		
+    <div class="calendar-body">
+			<table>
+				<thead>
+						<tr class="calendar-week-header">
+						<th><span>D</span></th>
+						<th><span>L</span></th>
+						<th><span>M</span></th>
+						<th><span>M</span></th>
+						<th><span>J</span></th>
+						<th><span>V</span></th>
+						<th><span>S</span></th>
+						</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+    </div>
+
+		<div class="calendar-footer"></div>
+	</div>
+
+<script>
+
+	const EVENTS_LIST = [
+		{
+			date: '2026-02-01', // formato: año-mes-dia
+			caption: 'Evento 1',
+		},
+		{
+			date: '2026-02-01',
+			caption: 'Evento 2',
+		},
+		{
+			date: '2026-02-02',
+			caption: 'Evento 3',
+		},
+	];
+
+	const todayDate = new Date();
+	const formattedTodayDate = todayDate.toISOString().split('T')[0];
+
+	// genera y devuelve todos los dias correspondiente a la grilla del mes, incluye los dias del mes pasado y/o anterior de ser necesario
+	function getCalendarGrid(month, year, eventsList = []) {
+		const calendarGrid = [];
+		// const formatDayName = new Intl.DateTimeFormat('es-ES', { weekday: 'long' });
+		const updateCalendarGrid = (date, currentMonth = false) => {
+			const formattedDate = date.toISOString().split('T')[0];
+			calendarGrid.push({
+				day: date.getDate(),
+				// caption: formatDayName.format(date),
+				currentMonth,
+				date: formattedDate,
+				events: eventsList.filter((event) => event.date === formattedDate),
+			});
+		}
+
+		// el primer dia del mes y su posiscion en la semana
+		const firstDayDate = new Date(year, month, 1);
+		const firstDateIndex = firstDayDate.getDay();
+
+		// ultimo dia del mes y su posicion en la semana
+		const lastDayDate = new Date(year, month + 1, 0);
+		const lastDayIndex = lastDayDate.getDay();
+
+		// dias totales en el mes
+		const totalDays = lastDayDate.getDate();		
+
+		// dias del mes anterior
+		for (let i = firstDateIndex - 1; i >= 0; i--) {
+			const prevDate = new Date(year, month, -i);
+			updateCalendarGrid(prevDate);
+		}
+
+		// dias del mes actual
+		for (let i = 1; i <= totalDays; i++) {
+			const date = new Date(year, month, i);
+			updateCalendarGrid(date, true);
+		}
+
+		// dias del mes siguiente
+		const remainingDays = 6 - lastDayIndex;
+		for (let i = 1; i <= remainingDays; i++) {
+			const nextDate = new Date(year, month + 1, i);
+			updateCalendarGrid(nextDate);
+		}
+
+		return calendarGrid;
+	}
+
+	// renderiza todos los dis del mes del calendario
+	function renderCalendarGrid(calendarEl, daysList) {
+    const bodyEl = calendarEl.querySelector('.calendar-body tbody');
+		const footerEl = calendarEl.querySelector('.calendar-footer');
+    if (!bodyEl) return;
+
+    bodyEl.innerHTML = '';
+		footerEl.innerHTML = '';
+
+    let row = document.createElement('tr');
+    row.classList.add('calendar-week');
+
+    daysList.forEach((day, index) => {
+      const td = document.createElement('td');
+        
+      if (!day.currentMonth) td.classList.add('not-current');
+			else td.dataset.date = day.date;
+
+			const isToday = day.date === formattedTodayDate;
+			let eventClass = '';
+			if (day.events.length) {
+				eventClass = `event-${day.events.length}`;
+			}
+
+			td.innerHTML = `<span><span class="${eventClass} ${isToday ? 'today' : ''}">${day.day}</span></span>`;
+			row.appendChild(td);
+
+			if ((index + 1) % 7 === 0) {
+				bodyEl.appendChild(row);
+				row = document.createElement('tr');
+				row.classList.add('calendar-week');
+			}
+    });
+
+    if (row.children.length > 0 && row.children.length < 7) {
+      bodyEl.appendChild(row);
+    }
+	}
+
+	function createCalendarInstance(selector, options = {}) {
+		const calendarEl = document.querySelector(selector);
+		const footerEl = calendarEl.querySelector('.calendar-footer');
+
+		// Eventos de los select y el dia
+		const monthSelectEl = calendarEl.querySelector('.month');
+		const yearSelectEl = calendarEl.querySelector('.year');
+		const daysEl = calendarEl.querySelector('.calendar-body tbody');
+
+		const updateCalendar = (date) => {
+			const [m, y] = date;
+			const grid = getCalendarGrid(m, y, options.events);
+			
+			// console.table(grid);
+			renderCalendarGrid(calendarEl, grid);
+		};
+
+		// el mes que mostraria el calenario al instanciarse, por defecto el actual
+		let startDate = [todayDate.getMonth(), todayDate.getFullYear()];
+		if (options.startDate) {
+			const [mStr, yStr] = options.startDate.split('-');
+			startDate = [parseInt(mStr) - 1, parseInt(yStr)];
+		}
+
+		updateCalendar(startDate);
+		
+		// los eventos de los elementos
+		if (monthSelectEl) {
+			monthSelectEl.value = startDate[0]; // month
+			monthSelectEl.addEventListener('change', (_) => {
+				updateCalendar([parseInt(monthSelectEl.value), parseInt(yearSelectEl.value)]);
+			});
+		}
+
+		if (yearSelectEl) {
+			yearSelectEl.value = startDate[1]; // year
+			yearSelectEl.addEventListener('change', (_) => {
+				updateCalendar([parseInt(monthSelectEl.value), parseInt(yearSelectEl.value)]);
+			});
+		}
+
+		daysEl.addEventListener('click', (e) => {
+			const cell = e.target.closest('td');
+			if (!cell || cell.classList.contains('not-current')) return;
+
+			calendarEl.querySelectorAll('.calendar-body td span span').forEach((el) => el.classList.remove('active'));
+			cell.querySelector('span span').classList.add('active');
+			
+			// mostrar la fecha completa en el footer
+			const textDate = new Date(cell.dataset.date + "T12:00:00").toLocaleDateString('es-ES', {
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric'
+			});
+			footerEl.innerHTML = `<p class="pt-2">${textDate}</p>`;
+		});
+	}
+
+	
+	// define la instancia de un calendario
+	createCalendarInstance('#calendar', {
+		startDate: '01-2026', // formato: mes-año
+		events: EVENTS_LIST,
+	});
+
+
+	
+
+	
+
+	
+
+</script>
+
+	
+ 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossOrigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossOrigin="anonymous"></script>
+</body>
+ 
+</html>
