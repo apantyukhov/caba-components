@@ -295,6 +295,7 @@
     }
 	}
 
+	// abre el accordion y marca el evento si cooncide la fecha
 	function handleAccordion(calendarEl, date) {
 		// accordion, se abre si esta colapsado
 		const collapseEl = calendarEl.querySelector('.accordion-collapse');
@@ -325,6 +326,7 @@
 
 	}
 
+	// crea la instancia del calendario, para evitar conflictos si hay mas de un calendario x pantalla
 	function createCalendarInstance(selector, options = {}) {
 		const calendarEl = document.querySelector(selector);
 		const footerEl = calendarEl.querySelector('.calendar-footer');
@@ -345,7 +347,7 @@
 		// el mes que mostraria el calenario al instanciarse, por defecto el actual
 		let startDate = [todayDate.getMonth(), todayDate.getFullYear()];
 		if (options.startDate) {
-			const [mStr, yStr] = options.startDate.split('-');
+			const [yStr, mStr] = options.startDate.split('-');
 			startDate = [parseInt(mStr) - 1, parseInt(yStr)];
 		}
 
@@ -388,7 +390,7 @@
 	
 	// define la instancia de un calendario
 	createCalendarInstance('#calendar', {
-		// startDate: '01-2026', // formato: mes-año
+		startDate: '2026-01', // formato: año-mes
 		events: EVENTS_LIST,
 	});
 
